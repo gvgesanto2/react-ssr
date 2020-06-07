@@ -89,8 +89,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var app = (0, _express2.default)();
 
 app.use(_express2.default.static("public"));
-app.get("/", function (req, res) {
-  res.send((0, _renderer2.default)());
+app.get("*", function (req, res) {
+  res.send((0, _renderer2.default)(req));
 });
 
 app.listen(3000, function () {
@@ -154,18 +154,26 @@ var _react2 = _interopRequireDefault(_react);
 
 var _server = __webpack_require__(4);
 
-var _homepage = __webpack_require__(5);
-
-var _homepage2 = _interopRequireDefault(_homepage);
+var _reactRouterDom = __webpack_require__(8);
 
 var _template = __webpack_require__(7);
 
 var _template2 = _interopRequireDefault(_template);
 
+var _Routes = __webpack_require__(9);
+
+var _Routes2 = _interopRequireDefault(_Routes);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.default = function () {
-  var markup = (0, _server.renderToString)(_react2.default.createElement(_homepage2.default, null));
+exports.default = function (_ref) {
+  var path = _ref.path;
+
+  var markup = (0, _server.renderToString)(_react2.default.createElement(
+    _reactRouterDom.StaticRouter,
+    { location: path, context: {} },
+    _react2.default.createElement(_Routes2.default, null)
+  ));
 
   return (0, _template2.default)({ markup: markup });
 };
@@ -185,6 +193,43 @@ exports.default = function (_ref) {
   var markup = _ref.markup;
 
   return "<!doctype html>\n    <html lang=\"en\">\n      <head>\n        <meta charset=\"utf-8\">\n        <meta\n          name=\"viewport\"\n          content=\"minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no\"\n        >\n        <title>React SSR</title>\n      </head>\n      <body>\n        <div id=\"root\">" + markup + "</div>\n        <script type=\"text/javascript\" src=\"bundle.js\"></script>\n      </body>\n    </html>";
+};
+
+/***/ }),
+/* 8 */
+/***/ (function(module, exports) {
+
+module.exports = require("react-router-dom");
+
+/***/ }),
+/* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouterDom = __webpack_require__(8);
+
+var _homepage = __webpack_require__(5);
+
+var _homepage2 = _interopRequireDefault(_homepage);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = function () {
+  return _react2.default.createElement(
+    'div',
+    null,
+    _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _homepage2.default })
+  );
 };
 
 /***/ })
