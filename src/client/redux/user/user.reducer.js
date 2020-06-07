@@ -1,7 +1,7 @@
 import UserActionTypes from "./user.types";
 
 const INITIAL_STATE = {
-  users: []
+  usersList: []
 };
 
 const userReducer = (state = INITIAL_STATE, action) => {
@@ -9,7 +9,7 @@ const userReducer = (state = INITIAL_STATE, action) => {
     case UserActionTypes.FETCH_USERS:
       return {
         ...state,
-        users: action.payload
+        usersList: action.payload.data
       };
     default:
       return state;
