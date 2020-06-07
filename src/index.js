@@ -1,14 +1,11 @@
-const express = require('express');
-const React = require('react');
-const { renderToString } = require('react-dom/server');
-const HomePage = require('./client/pages/homepage/homepage.page').default;
+import express from 'express';
+import renderer from './helpers/renderer';
 
 const app = express();
 
+app.use(express.static("public"));
 app.get("/", (req, res) => {
-  const content = renderToString(<HomePage />);
-
-  res.send(content);
+  res.send(renderer());
 });
 
 app.listen(3000, () => {
